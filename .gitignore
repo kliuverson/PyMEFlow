@@ -1,0 +1,33 @@
+﻿# Dependencias de Node.js
+node_modules/
+**/node_modules/
+
+# Archivos generados
+dist/
+**/dist/
+coverage/
+*.tsbuildinfo
+
+# Variables de entorno y secretos
+.env
+.env.*
+!.env.example
+!.**/.env.example
+
+# Registros y archivos temporales
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db
+
+# Archivos locales de asistentes de desarrollo
+**/.agents/
+**/.claude/
+**/.windsurf/
+
+# Archivos generados por Prisma
+backend/src/generated/prisma/
+
+# Archivos de herramientas y editores
+.vscode/
+.idea/
