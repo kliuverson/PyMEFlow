@@ -1,6 +1,7 @@
 
 import type { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
+import { env } from "../config/env";
 
 interface AuthenticatedRequest extends Request {
   userId?: string;
@@ -22,18 +23,10 @@ export function authenticateToken(
   }
 
   const token = authorization.slice(7);
-  const secret = process.env.JWT_SECRET;
-
-  if (!secret) {
-    res.status(500).json({
-      success: false,
-      message: "La autenticación no está configurada correctamente",
-    });
-    return;
-  }
+  
 
   try {
-    const payload = jwt.verify(token, secret);
+    const payload = jwt.verify(token, env.JWT_SECRET);
 
     if (
       typeof payload === "string" ||

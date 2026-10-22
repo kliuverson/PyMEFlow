@@ -6,13 +6,14 @@ import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 import companiesRouter from "./modules/companies/companies.routes";
+import { env } from "./config/env";
 app.disable("x-powered-by");
 
 app.use(helmet());
 
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL ?? "http://localhost:5173",
+    origin: env.FRONTEND_URL ?? "http://localhost:5173",
   }),
 );
 

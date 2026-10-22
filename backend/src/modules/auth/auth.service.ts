@@ -1,12 +1,12 @@
 
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
+import jwt, { type SignOptions } from "jsonwebtoken";
 import { Prisma } from "../../generated/prisma/client";
 import { prisma } from "../../config/database";
 import type { LoginInput, RegisterInput } from "./auth.schemas";
+import { env } from "../../config/env";
 
 const SALT_ROUNDS = 10;
-const JWT_EXPIRES_IN = "1h";
 
 export class AuthServiceError extends Error {
   constructor(
@@ -19,18 +19,11 @@ export class AuthServiceError extends Error {
 }
 
 function generateToken(userId: string): string {
-  const secret = process.env.JWT_SECRET;
-
-  if (!secret) {
-    throw new Error("Falta configurar JWT_SECRET en el archivo .env");
-  }
-
-  return jwt.sign({}, secret, {
+  return jwt.sign({}, env.JWT_SECRET, {
     subject: userId,
-    expiresIn: JWT_EXPIRES_IN,
+    expiresIn: env.JWT_EXPIRES_IN as SignOptions["expiresIn"],
   });
 }
-
 export async function registerUser(input: RegisterInput) {
   const passwordHash = await bcrypt.hash(input.password, SALT_ROUNDS);
 

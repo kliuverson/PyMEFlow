@@ -1,10 +1,7 @@
-
-import "dotenv/config";
 import app from "./app";
+import { env } from "./config/env";
 
-const PORT = Number(process.env.PORT) || 3000;
-
-app.listen(PORT, () => {
-  console.log(`PyMEFlow API disponible en http://localhost:${PORT}`);
-  console.log(`Verificación: http://localhost:${PORT}/health`);
+app.listen(env.PORT, () => {
+  console.log(`PyMEFlow API disponible en http://localhost:${env.PORT}`);
+  console.log(`Verificación: http://localhost:${env.PORT}/health`);
 });
